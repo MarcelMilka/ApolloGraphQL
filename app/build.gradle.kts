@@ -2,6 +2,10 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.apollo)
+
+//  Hilt
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -66,6 +70,13 @@ dependencies {
     debugImplementation(libs.androidx.ui.test.manifest)
 
     implementation(libs.apollo.runtime)
+
+    implementation("com.google.dagger:hilt-android:2.51.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.51.1")
+}
+
+kapt {
+    correctErrorTypes = true
 }
 
 apollo {
@@ -73,9 +84,9 @@ apollo {
         packageName.set("com.example.rocketreserver")
 
 //      AFTER INSTALLING THE SCHEMA, GET RID OF THE CODE BELOW, OTHERWISE schema.graphqls 'll have errors
-//      introspection {
-//          endpointUrl.set("https://apollo-fullstack-tutorial.herokuapp.com/graphql")
-//          schemaFile.set(file("src/main/graphql/schema.graphqls"))
-//      }
+      introspection {
+          endpointUrl.set("https://countries.trevorblades.com/graphql")
+          schemaFile.set(file("src/main/graphql/schema.graphql"))
+      }
     }
 }
